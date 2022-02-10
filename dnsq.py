@@ -195,12 +195,12 @@ def _exec_query(hostname, record_type, name_srv_ip=None):
         if name_srv_ip:
             resolver = _new_resolver(name_srv_ip)
             try:
-                return resolver.query(hostname, record_type, tcp=True)
+                return resolver.resolve(hostname, record_type, tcp=True)
             except dns.exception.Timeout:
                 pass
 
         # if it's not specified or timed out then use default nameserver
-        return _get_default_resolver().query(hostname, record_type, tcp=True)
+        return _get_default_resolver().resolve(hostname, record_type, tcp=True)
 
     except (dns.exception.Timeout,
             dns.resolver.NoNameservers,
